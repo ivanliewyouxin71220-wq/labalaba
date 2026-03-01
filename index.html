@@ -236,5 +236,54 @@ animate();
 window.addEventListener("click",(e)=>{for(let i=0;i<30;i++) particles.push(new Particle(e.clientX,e.clientY));});
 window.addEventListener("resize",()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
 </script>
+<!-- 图片点击放大外挂系统 START -->
+<div id="imgModal" style="
+display:none;
+position:fixed;
+z-index:9999;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+justify-content:center;
+align-items:center;
+">
+
+<img id="modalImg" style="
+max-width:90%;
+max-height:90%;
+border-radius:20px;
+box-shadow:0 0 40px white;
+cursor:pointer;
+transition:0.3s;
+transform:scale(0.8);
+">
+
+</div>
+
+<script>
+// 图片点击放大功能（完全不改原代码）
+const images = document.querySelectorAll(".grid img");
+const modal = document.getElementById("imgModal");
+const modalImg = document.getElementById("modalImg");
+
+images.forEach(img=>{
+    img.style.cursor="pointer";
+    img.addEventListener("click",()=>{
+        modal.style.display="flex";
+        modalImg.src=img.src;
+        setTimeout(()=>{
+            modalImg.style.transform="scale(1)";
+        },10);
+    });
+});
+
+modal.addEventListener("click",()=>{
+    modal.style.display="none";
+    modalImg.style.transform="scale(0.8)";
+});
+</script>
+<!-- 图片点击放大外挂系统 END -->
 </body>
 </html>
