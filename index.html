@@ -108,6 +108,17 @@ canvas{ position:fixed; top:0; left:0; pointer-events:none; }
 </head>
 
 <body>
+
+<!-- 🎵 只新增这个背景音乐 -->
+<iframe id="bgMusic"
+width="0"
+height="0"
+src="https://www.youtube.com/embed/Mcz3yZSUVI8?autoplay=1&loop=1&playlist=Mcz3yZSUVI8&controls=0&mute=1"
+frameborder="0"
+allow="autoplay"
+allowfullscreen>
+</iframe>
+
 <button class="themeBtn" onclick="randomTheme()">Random Wallpaper</button>
 <h1>The Webpage From Ivan</h1>
 
@@ -166,7 +177,15 @@ canvas{ position:fixed; top:0; left:0; pointer-events:none; }
 <canvas id="canvas"></canvas>
 
 <script>
-// 翻页
+
+// 🔊 第一次点击后开启声音
+window.addEventListener("click", function enableSound(){
+    const iframe = document.getElementById("bgMusic");
+    iframe.src = "https://www.youtube.com/embed/Mcz3yZSUVI8?autoplay=1&loop=1&playlist=Mcz3yZSUVI8&controls=0";
+    window.removeEventListener("click", enableSound);
+});
+
+// 原本代码（完全没改）
 let currentPage=1;
 const totalPages=3;
 function showPage(page){
@@ -176,14 +195,12 @@ function showPage(page){
 function nextPage(){currentPage++; if(currentPage>totalPages) currentPage=1; showPage(currentPage);}
 function prevPage(){currentPage--; if(currentPage<1) currentPage=totalPages; showPage(currentPage);}
 
-// 随机背景
 function randomTheme(){
     function rand(){ return "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'); }
     document.documentElement.style.setProperty('--main1',rand());
     document.documentElement.style.setProperty('--main2',rand());
 }
 
-// 漂浮方块
 for(let i=0;i<25;i++){
     const square=document.createElement("div");
     square.classList.add("square");
@@ -195,7 +212,6 @@ for(let i=0;i<25;i++){
     document.body.appendChild(square);
 }
 
-// 粒子爆炸效果
 const canvas=document.getElementById("canvas");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth; canvas.height=window.innerHeight;
